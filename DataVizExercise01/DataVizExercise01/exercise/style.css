@@ -12,6 +12,9 @@ It switches from
 to
 	https://mdn.mozillademos.org/files/13649/box-model-alt-small.png
 */
+#first_paragraph{
+	background-color: green;
+}
 * {
 	box-sizing: border-box;
 }
