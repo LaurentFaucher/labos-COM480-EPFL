@@ -16,10 +16,10 @@ but you can use transform="scale(1, -1)" to invert that.
 	<style>
 		.axis {
 			stroke-width: 1;
-			stroke: rgb(200, 200, 200);
+			stroke: white;
 		}
 		text {
-			fill: rgb(200, 200, 200);
+			fill: white;
 			font-size: 8px;
 			text-anchor: middle;
 		}
@@ -31,9 +31,9 @@ but you can use transform="scale(1, -1)" to invert that.
 	This path consists of line segments (L).
 	-->
 	<path
-		d="M 0 100 L 25 75 L 50 50 L 75 40 L 100 70 L 125 80 L 150 70 L 175 40 L 200 15 V 100 Z"
-		fill="rgb(0, 44, 122)"
-		stroke="rgb(0, 156, 250)"
+		d="M 0 100 L 25 40 L 50 50 L 75 40 L 100 47 L 125 30 L 150 43 L 175 40 L 200 40 V 100 Z"
+		fill="hotpink"
+		stroke="purple"
 		stroke-width="0.75"
 	/>
 
@@ -48,21 +48,25 @@ but you can use transform="scale(1, -1)" to invert that.
 	We set the color for all of them using a group
 	https://developer.mozilla.org/en-US/docs/Web/SVG/Element/g
 	-->
-	<g id="red-dots-plot" fill="rgb(255, 0, 0)">
+	<g id="red-dots-plot" fill="yellow">
 		<!-- https://developer.mozilla.org/en-US/docs/Web/SVG/Element/circle -->
 		<circle cx="0" cy="75" r="1" />
-		<circle cx="25" cy="65" r="1" />
+		<circle cx="25" cy="45" r="1" />
 		<circle cx="50" cy="60" r="1" />
 		<circle cx="75" cy="55" r="1" />
 		<circle cx="100" cy="47" r="1" />
-		<circle cx="125" cy="40" r="1" />
+		<circle cx="125" cy="20" r="1" />
 		<circle cx="150" cy="30" r="1" />
 		<circle cx="175" cy="10" r="1" />
 		<circle cx="200" cy="20" r="1" />
 	</g>
 
-
-
+	<text x="150" y="0">Lame event!</text>
+	<path
+		d="M 150 4 L 125 40 Z"
+		stroke="purple"
+		stroke-width="0.75"
+	/>
 	<text x="50%" y="110">time</text>
 
 	<!-- The group positions the text by the translate transform, the text element inside is rotated around the point -->
