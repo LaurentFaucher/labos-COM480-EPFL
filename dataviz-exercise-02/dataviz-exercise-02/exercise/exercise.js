@@ -9,7 +9,9 @@ To implement:
 
 */
 
-
+function isEven(value) {
+	return value % 2 ? false : true;
+}
 /*
 ### multiply
 To implement:
@@ -17,7 +19,9 @@ To implement:
 * find a product of the following numbers: 1,2,3,4,5
 * multiply(1,2,3,4,5) should return 120
 */
-
+function multiply(...numbers) {
+	return numbers.reduce((acc, val) => acc * val, 1);
+}
 
 /*
 ## Closures
@@ -27,7 +31,7 @@ To implement:
 * divisibleBy
 * filter [0, 1, 2, 3, 4, 5, 6] by divisibleBy(3)
 */
-
+const divisibleBy = (divisor) => (x => x % divisor === 0 ? true : false);
 
 /*
 ### increment
@@ -35,7 +39,12 @@ To implement:
 * increment
 * initial value is 100, step size is 2
 */
-
+function increment(value=0) {
+	function inc2(step=1) {
+		return value + step;
+	}
+	return inc2;
+}
 
 /*
 ### colorCycle
@@ -45,7 +54,15 @@ colorCycle(colors=COLOR_CYCLE_DEFAULT)
 
 const COLOR_CYCLE_DEFAULT = ['red', 'green', 'magenta', 'blue'];
 
-
+function colorCycle(colors=COLOR_CYCLE_DEFAULT) {
+	let index = 0;
+  	const length = colors.length;
+ 	 return function() {
+    	const color = colors[index % length];
+    	index++;
+    	return color;
+  	};
+}
 
 const cc_r_g = colorCycle(['red', 'green']);
 // This is a way to run 10 times, see the task about `range` below.
@@ -65,6 +82,9 @@ To implement:
 * range
 * filter range(100) by divisibility by 13
 */
+function range(N) {
+	return Array.from(Array(N)).map((val, i) => val = i);
+}
 
 console.log('range(10)', range(10));
 // Expeceted result:
@@ -79,6 +99,13 @@ To implement:
 * Implement a function `randomArray(N, min_val=0, max_val=100)` which generates an array of `N` random values between `min_val` and `max_val`.
 
 */
+function randomInRange(min_val=0, max_val=100) {
+	return Math.random() * (max_val - min_val) + min_val;
+}
+
+function randomArray(N, min_val=0, max_val=100) {
+	return Array.from(Array(N)).map((val) => val = randomInRange(min_val, max_val) )
+}
 
 console.log('randomArray', randomArray(5, 0, 10));
 
@@ -88,6 +115,12 @@ console.log('randomArray', randomArray(5, 0, 10));
 * Create a function `countOccurrences(string)` which counts the number of occurrences of each letter in a string.
 	For example `countOccurrences("hello")` yields `{'h': 1, 'e': 1, 'l': 2, 'o': 1 }`.
 */
+
+function countOccurrences(str) {
+	const dict = {};
+	Array.from(str).forEach((val) => dict[val] ? dict[val] ++ : dict[val] = 1);
+	return dict;
+}
 
 
 console.log(countOccurrences('hello'));
@@ -106,13 +139,20 @@ console.log(countOccurrences('hello'));
 * Visualize the results by calling `setCharacterCountingFunction(countOccurencesNormalized);` - look at `index.html`, now you should be able to count the distribution
 of characters in any text you input. You can pass a `colorCycle` with your colors as the second argument to color the bars.
 */
-
+function normalizeCounts (dict) {
+	sum = Object.values(dict).reduce((acc, val) => acc + val, 0);
+	Object.keys(dict).forEach((val) => dict[val] = dict[val] / sum);
+	return dict;
+}
 
 console.log(normalizeCounts(countOccurrences('hello')));
 // Expected result:
 // normalizeCounts({'h': 1, 'e': 1, 'l': 2, 'o': 1 }) ---> {'h': 0.2, 'e': 0.2, 'l': 0.4, 'o': 0.2 }
 
-
+function countOccurrencesNormalized (str) {
+	return normalizeCounts(countOccurrences(str));
+};
+setCharacterCountingFunction(countOccurrencesNormalized);
 /*
 ## Throwing balls
 
@@ -145,6 +185,14 @@ Use the `range` function to create the array of time points, then `map` them to 
 */
 
 const DEG_TO_RAD = Math.PI / 180.;
+function simulateBall(v0, angle, num_steps=256, dt=0.05, g=-9.8) {
+	b = angle * DEG_TO_RAD;
+	v_x = v0 * Math.cos(b);
+	v_y = v0 * Math.sin(b);
+	const x = (t) => v_x * t;
+	const y = (t) => v_y * t + (g * (t * t) * 0.5);
+	return range(num_steps).map((num) => num = [x(num * dt), y(num * dt)]).filter((value) => value[1] > 0);
+}
 
 
 const ball_cc = colorCycle(['hsl(160, 100%, 64%)', 'hsl(200, 100%, 64%)', 'hsl(240, 100%, 64%)', 'hsl(120, 100%, 64%)', 'hsl(80, 100%, 64%)']);
