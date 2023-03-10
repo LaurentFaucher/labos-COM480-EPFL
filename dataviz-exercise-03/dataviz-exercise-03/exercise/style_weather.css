@@ -2,6 +2,12 @@
 /* Display the paragraphs of temperature-list in a row
 	https://css-tricks.com/snippets/css/a-guide-to-flexbox/
 */
+.warm {
+	background-color: rgb(228, 110, 110);
+}
+.cold {
+	background-color: rgb(109, 109, 222);
+}
 
 .temperatures {
 	display: flex;
