@@ -26,14 +26,53 @@ const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'
 
 
 class ScatterPlot {
-	/* your code here */
+	constructor(html_id, data) {
+		const linearScaleX = d3.scaleLinear().domain([1, data.length]).range([0, 200]);
+		const linearScaleY = d3.scaleLinear().domain([0, 30]).range([100, 0]);
+
+		const getClass = (temp) => {
+			if (temp <= 17) return "cold";
+			else if (temp >= 23) return "warm";
+			else return "";
+		};
+
+		const yLab = []
+		const temp = [...Array(31).keys()]
+		temp.forEach((elem) => { if (elem % 5 === 0) yLab.push(elem)});
+
+		const svg =  d3.select(`#${html_id}`);
+		svg.selectAll("circles")
+			.data(data)
+			.enter().append("circle")
+			.attr("cx", (d) => linearScaleX(d.x))
+			.attr("cy", (d) => linearScaleY(d.y))
+			.attr("r", 2.5)
+			.attr("class", (d) => getClass(d.y))
+		// X labels
+		svg.selectAll("xLabels")
+			.data(data)
+			.enter().append("text")
+			.attr('x', (d) => linearScaleX(d.x))
+			.attr('y', 103)
+			.text((d) => d.name)
+		// Y labels
+		svg.selectAll("yLabels")
+			.data(yLab)
+			.enter().append("text")
+			.attr('x', -20)
+			.attr('y', (d) => linearScaleY(d))
+			.text((d) => `${d}`)
+	}
+
 }
 
 whenDocumentLoaded(() => {
 
 	// prepare the data here
-
-	//console.log(data);
+	const data = TEST_TEMPERATURES.map((temp, id) => {
+		return {'y': temp, 'x': id+1, 'name': DAYS[id]}
+	});
+	console.log(data);
 
 	const plot = new ScatterPlot('plot', data);
 });
