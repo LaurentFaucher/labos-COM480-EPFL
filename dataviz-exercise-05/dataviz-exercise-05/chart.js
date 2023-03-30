@@ -1,3 +1,8 @@
+/*
+
+lab-4 solution
+
+*/
 const chartDiv = document.getElementById("chart-container");
 
 const margin = {
@@ -22,13 +27,11 @@ function createChart(data) {
   let charts = [];
   let maxDataPoint = 0;
   let minDataPoint = 100; // the init value just have to be big enough to be less than the highest temperature
-
+  console.log(data[0])
   // Get countries 
   for (let prop in data[0]) {
     if (data[0].hasOwnProperty(prop)) {
-      if (prop != 'Year') {
-        countries.push(prop);
-      }
+      if (prop != 'Year') countries.push(prop);
     }
   };
 
@@ -42,14 +45,8 @@ function createChart(data) {
     for (let prop in d) {
       if (d.hasOwnProperty(prop) && prop != 'Year') {
         d[prop] = parseFloat(d[prop]);
-
-        if (d[prop] > maxDataPoint) {
-          maxDataPoint = d[prop];
-        }
-
-        if (d[prop] < minDataPoint) {
-          minDataPoint = d[prop];
-        }
+        if (d[prop] > maxDataPoint) maxDataPoint = d[prop];
+        if (d[prop] < minDataPoint) minDataPoint = d[prop];
       }
     }
 
@@ -122,9 +119,8 @@ function createChart(data) {
   // Brush handler. Get time-range from a brush and pass it to the charts. 
   function onBrush() {
     var b = d3.event.selection === null ? contextXScale.domain() : d3.event.selection.map(contextXScale.invert);
-    for (var i = 0; i < countriesCount; i++) {
+    for (var i = 0; i < countriesCount; i++)
       charts[i].showOnly(b);
-    }
   }
 }
 
